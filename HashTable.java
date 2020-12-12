@@ -18,7 +18,13 @@ public class HashTable<K, V> {
 	public void put(K key, V value) {
 		int hash = key.hashCode();
 		int bucket = hash % size;
-		buckets.get(bucket).add(new Pair<>(key, value));
+		if (get(key) == null) {
+			buckets.get(bucket).add(new Pair<>(key, value));
+		} else {
+			for (Pair<K,V> p : buckets.get(bucket).getValues()) {
+				if (p.getKey().equals(key)) p.setValue(value);
+			}
+		}
 	}
 	
 	public V get(K key) {
