@@ -16,12 +16,12 @@ public class Bucket<T> {
 		}
 	}
 
-	public void delete(T value) {
-		if (value == null) return;
+	public void delete(T val) {
+		if (this.value == null) return;
 		if (extras == null) {
 			value = null;
 		} else {
-			extras.remove(value);
+			extras.remove(val);
 		}
 	}
 	
