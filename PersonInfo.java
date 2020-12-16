@@ -2,6 +2,7 @@
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.util.UUID;
 
 @DynamoDBTable(tableName = "PersonInfo")
 public class PersonInfo implements IDable<String> {
@@ -85,7 +86,10 @@ public class PersonInfo implements IDable<String> {
     			&& this.role.ordinal() == p.role.ordinal();    	
     }
 
-
+    @Override
+    public String toString() {
+	return id + " : " + firstName + " " + lastName + " -> " + role.name();
+    }
 
 
     public static void main(String[] args) {
@@ -97,13 +101,17 @@ public class PersonInfo implements IDable<String> {
           ps.setRole(Role.values()[i % Role.values().length]);
 	  ps.setFirstName("Joe");
 	  ps.setLastName("B");
-	  ps.setId(""+i);
+	  ps.setId(UUID.randomUUID().toString());
 	  table.put(800000-i, ps);
-	  if (i == 500000) p = ps;
+	  if (i == 500000) {
+		p = ps;
+		p.setFirstName("Alex");
+	  }
 	} 
 
-	System.out.println(table.get(500000));
+	System.out.println(table.get(300000));
 
     }
 
 }
+
