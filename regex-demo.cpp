@@ -22,7 +22,7 @@ void process_line(char *line, int n) {
 			printf("Line %d: %s", n, line);
 			first = false;
 		}
-		printf("Line %d, position %d: %.*s\n", n, index+match.rm_so, match.rm_eo-match.rm_so, line+match.rm_so);
+		printf("Line %d, position %d: %.*s\n", n, index+match.rm_so, match.rm_eo-match.rm_so, line+index+match.rm_so);
 		index += match.rm_eo;
 	} while (match.rm_eo != 0);
 }
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 	if (int ret = regcomp(&regex, ex, REG_EXTENDED) != 0) {
 		printf("error...\n");
 		char errormsg[256];
-		regerror(ret, &regex, errormsg, sizeof(errmsg));
+		regerror(ret, &regex, errormsg, sizeof(errormsg));
 		printf("Error %s (ret = %d) for regex %s\n", errormsg, ret, ex);
 	} else {
 		printf("compiled, testing sample...\n");
