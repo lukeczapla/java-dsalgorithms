@@ -21,7 +21,7 @@ public class Bucket<T> {
 
 	public void delete(T val) {
 		if (this.value == null) return;
-		if (extras == null) {
+		if (extras == null || extras.size() == 0) {
 			value = null;
 		} else {
 			extras.remove(val);
