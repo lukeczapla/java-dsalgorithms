@@ -48,7 +48,7 @@ public class HashTable<K, V> {
 		return false;
 	}
 
-	public Set keys() {
+	public Set<K> keys() {
 		return keys;
 	}
 	
