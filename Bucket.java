@@ -15,6 +15,15 @@ public class Bucket<T> {
 			extras.add(value);
 		}
 	}
+
+	public void delete(T value) {
+		if (value == null) return;
+		if (extras == null) {
+			value = null;
+		} else {
+			extras.remove(value);
+		}
+	}
 	
 	public List<T> getValues() {
 		if (value == null) return null;
