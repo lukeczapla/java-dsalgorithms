@@ -102,11 +102,11 @@ public class PersonInfo implements IDable<String> {
 	  ps.setFirstName("Joe");
 	  ps.setLastName("B");
 	  ps.setId(UUID.randomUUID().toString());
-	  table.put(800000-i, ps);
 	  if (i == 500000) {
 		p = ps;
 		p.setFirstName("Alex");
 	  }
+	  table.put(800000-i, ps);
 	} 
 
 	System.out.println(table.get(300000));
