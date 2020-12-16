@@ -90,7 +90,7 @@ public class PersonInfo implements IDable<String> {
 
     public static void main(String[] args) {
 
-	HashTable<PersonInfo, String> table = new HashTable<>(1048576);
+	HashTable<Integer, PersonInfo> table = new HashTable<>(1048576);
 	PersonInfo p = null;
 	for (int i = 0; i < 800000; i++) {
 	  PersonInfo ps = new PersonInfo();
@@ -98,11 +98,11 @@ public class PersonInfo implements IDable<String> {
 	  ps.setFirstName("Joe");
 	  ps.setLastName("B");
 	  ps.setId(""+i);
-	  table.put(ps, ""+i);
+	  table.put(800000-i, ps);
 	  if (i == 500000) p = ps;
 	} 
 
-	System.out.println(table.get(p)));
+	System.out.println(table.get(500000));
 
     }
 
