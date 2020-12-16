@@ -34,9 +34,9 @@ int main(int argc, char **argv) {
 	//printf("%lu %lu\n", sizeof(regoff_t), sizeof(int));
 	if (int ret = regcomp(&regex, ex, REG_EXTENDED) != 0) {
 		printf("error...\n");
-		char errmsg[256];
-		regerror(ret, &regex, errmsg, sizeof(errmsg));
-		printf("Error msg :%s (ret = %d) for regex:%s\n", errmsg, ret, "phone");
+		char errormsg[256];
+		regerror(ret, &regex, errormsg, sizeof(errmsg));
+		printf("Error %s (ret = %d) for regex %s\n", errormsg, ret, ex);
 	} else {
 		printf("compiled, testing sample...\n");
 		regexec(&regex, input, 1, &match, 0);
