@@ -52,15 +52,18 @@ int main(int argc, char **argv) {
 	size_t line_size[N];
 	ssize_t linelen[N];
 
-    for (int batch = 0; batch < TOTAL / N; batch++) {
+
+    for (int batch = 0; batch <= TOTAL / N; batch++) {
 	printf("Batch %d\n", batch);
-	if (batch != 0) for (int i = 0; i < N; i++) {
+	int n = N;
+	if (batch == TOTAL / N) n = TOTAL % N + 1;
+	if (batch != 0) for (int i = 0; i < n; i++) {
 		fclose(f[i]);
 		fclose(fout[i]);
 	}
 	printf("Batch %d\n", batch);
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
                 sprintf(fname, "input%d.txt", batch*N+i);
                 f[i] = fopen(fname, "r");
                 sprintf(fname, "output%d.txt", batch*N+i);
@@ -69,7 +72,7 @@ int main(int argc, char **argv) {
                 line_number[i] = 1;
         }
         #pragma omp for
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
 		while (linelen[i] = getline(&line[i], &line_size[i], f[i]) > 0) {
 			process_line(line[i], line_number[i], fout[i]);
 			line_number[i]++;
