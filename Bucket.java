@@ -19,13 +19,28 @@ public class Bucket<T> {
 		}
 	}
 
-	public void delete(T val) {
-		if (this.value == null) return;
+	// delete the item val from the Bucket, return false if not there.
+	public boolean delete(T val) {
+		if (this.value == null) return false;
 		if (extras == null || extras.size() == 0) {
-			value = null;
+			if (value.equals(val)) {
+				value = null;
+				return true;
+			}
+			return false;
 		} else {
-			extras.remove(val);
+			if (value.equals(val)) {
+				value = extras.remove(0);
+				return true;
+			}
+			else {
+				if (extras.contains(val)) {
+		        		extras.remove(val);
+					return true;
+				}
+			}
 		}
+		return false;
 	}
 	
 	public List<T> getValues() {
@@ -44,3 +59,4 @@ public class Bucket<T> {
 	}
 	
 }
+
