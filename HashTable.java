@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class HashTable<K, V> {
-	
+
 	private int size;
 	private List<Bucket<Pair<K, V>>> buckets;
 
 	private Set<K> keys;
-	
+
 	public HashTable(int size) {
 		this.size = size;
 		buckets = new ArrayList<>(size);
@@ -19,10 +19,10 @@ public class HashTable<K, V> {
 			buckets.add(new Bucket<>());
 		}
 	}
-	
+
 	public void put(K key, V value) {
 		int hash = key.hashCode();
-		int bucket = hash % size;
+		int bucket = Math.abs(hash % size);
 		if (get(key) == null) {
 			buckets.get(bucket).add(new Pair<>(key, value));
 		} else {
@@ -36,11 +36,12 @@ public class HashTable<K, V> {
 	public boolean remove(K key) {
 		if (get(key) == null) return false;
 		int hash = key.hashCode();
-                int bucket = hash % size;
+		int bucket = Math.abs(hash % size);
 		Bucket<Pair<K,V>> bin = buckets.get(bucket);
 		for (Pair<K,V> p : bin.getValues()) {
 			if (p.getKey().equals(key)) {
 				bin.delete(p);
+				keys.remove(key);  // remove the key from the key set if it's found
 				return true;
 			}
 		}
@@ -51,16 +52,16 @@ public class HashTable<K, V> {
 	public Set<K> keys() {
 		return keys;
 	}
-	
+
 	public V get(K key) {
 		int hash = key.hashCode();
-		int bucket = hash % size;
+		int bucket = Math.abs(hash % size);
 		if (buckets.get(bucket).size() == 0) return null;
 		for (Pair<K,V> p : buckets.get(bucket).getValues()) {
 			if (p.getKey().equals(key)) return p.getValue();
 		}
 		return null;
 	}
-	
+
 }
 
